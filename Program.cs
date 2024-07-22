@@ -1,11 +1,24 @@
+using Paws_API.DomainLayer.Config;
+using Paws_API.DomainLayer.Config.Container;
+using Paws_API.DomainLayer.Handlers.PetfinderHandler;
+using Paws_API.InfrastructureLayer.Service.PetfinderService;
+using Paws_API.InfrastructureLayer.Service.PetfinderService.Client;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddScoped<IPetfinderHandler, PetfinderHandler>();
+builder.Services.AddScoped<IPetfinderHttpClient, PetfinderHttpClient>();
+builder.Services.AddScoped<IPetfinderService, PetfinderService>();
+
+builder.Services.Configure<PetfinderServiceSettings>(builder.Configuration.GetSection("PetfinderService"));
+
+builder.Services.AddSingleton<IConfigurationContainer, ConfigurationContainer>();
+
+builder.Services.AddHttpClient();
 
 var app = builder.Build();
 

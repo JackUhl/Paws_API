@@ -10,7 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<IPetfinderHandler, PetfinderHandler>();
+builder.Services.AddScoped<IAnimalsHandler, AnimalsHandler>();
 builder.Services.AddScoped<IPetfinderHttpClient, PetfinderHttpClient>();
 builder.Services.AddScoped<IPetfinderService, PetfinderService>();
 
@@ -20,14 +20,26 @@ builder.Services.AddSingleton<IConfigurationContainer, ConfigurationContainer>()
 
 builder.Services.AddHttpClient();
 
+var allowedOriginsPolicy = "AllowedOrigins";
+var allowedOriginsSettings = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>();
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy(name: allowedOriginsPolicy, builder =>
+    {
+        builder.WithOrigins(allowedOriginsSettings);
+    });
+});
+
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors(allowedOriginsPolicy);
 
 app.UseHttpsRedirection();
 

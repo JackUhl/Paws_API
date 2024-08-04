@@ -8,20 +8,20 @@ namespace Paws_API.ApiLayer.Controllers
     public class AnimalsController : ControllerBase
     {
         private readonly ILogger<AnimalsController> _logger;
-        private readonly IPetfinderHandler _petfinderHandler;
+        private readonly IAnimalsHandler _animalsHandler;
 
-        public AnimalsController(ILogger<AnimalsController> logger, IPetfinderHandler petfinderHandler)
+        public AnimalsController(ILogger<AnimalsController> logger, IAnimalsHandler animalsHandler)
         {
             _logger = logger;
-            _petfinderHandler = petfinderHandler;
+            _animalsHandler = animalsHandler;
         }
 
-        [HttpGet("PetfinderAnimals")]
-        public async Task<IActionResult> GetPetfinderAnimals()
+        [HttpGet("AnimalsInfo")]
+        public async Task<IActionResult> AnimalsInfo()
         {
             try
             {
-                var response = await _petfinderHandler.GetPetfinderAnimals();
+                var response = await _animalsHandler.GetPetfinderAnimals();
 
                 if (response != null)
                 {

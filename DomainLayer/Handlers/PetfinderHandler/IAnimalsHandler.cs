@@ -2,7 +2,7 @@
 
 namespace Paws_API.DomainLayer.Handlers.PetfinderHandler
 {
-    public interface IPetfinderHandler
+    public interface IAnimalsHandler
     {
         public Task<PetfinderResponse> GetPetfinderAnimals();
     }

@@ -5,23 +5,23 @@ namespace Paws_API.ApiLayer.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class AnimalsController : ControllerBase
+    public class AdoptablePetsController : ControllerBase
     {
-        private readonly ILogger<AnimalsController> _logger;
-        private readonly IAnimalsHandler _animalsHandler;
+        private readonly ILogger<AdoptablePetsController> _logger;
+        private readonly IAdoptablePetsHandler _adoptablePetsHandler;
 
-        public AnimalsController(ILogger<AnimalsController> logger, IAnimalsHandler animalsHandler)
+        public AdoptablePetsController(ILogger<AdoptablePetsController> logger, IAdoptablePetsHandler adoptablePetsHandler)
         {
             _logger = logger;
-            _animalsHandler = animalsHandler;
+            _adoptablePetsHandler = adoptablePetsHandler;
         }
 
-        [HttpGet("AnimalsInfo")]
-        public async Task<IActionResult> AnimalsInfo()
+        [HttpGet("AdoptablePets")]
+        public async Task<IActionResult> AdoptablePets()
         {
             try
             {
-                var response = await _animalsHandler.GetPetfinderAnimals();
+                var response = await _adoptablePetsHandler.GetPetfinderAnimals();
 
                 if (response != null)
                 {

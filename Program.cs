@@ -10,7 +10,7 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddScoped<IAnimalsHandler, AnimalsHandler>();
+builder.Services.AddScoped<IAdoptablePetsHandler, AdoptablePetsHandler>();
 builder.Services.AddScoped<IPetfinderHttpClient, PetfinderHttpClient>();
 builder.Services.AddScoped<IPetfinderService, PetfinderService>();
 

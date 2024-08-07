@@ -16,7 +16,7 @@ namespace Paws_API.ApiLayer.Controllers
             _adoptablePetsHandler = adoptablePetsHandler;
         }
 
-        [HttpGet("AdoptablePets")]
+        [HttpGet]
         public async Task<IActionResult> AdoptablePets()
         {
             try

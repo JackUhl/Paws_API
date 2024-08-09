@@ -3,12 +3,12 @@ using Paws_API.InfrastructureLayer.Service.PetfinderService;
 
 namespace Paws_API.DomainLayer.Handlers.PetfinderHandler
 {
-    public class PetfinderHandler : IPetfinderHandler
+    public class AdoptablePetsHandler : IAdoptablePetsHandler
     {
         ILogger _logger;
         IPetfinderService _petfinderService;
 
-        public PetfinderHandler(ILogger<PetfinderHandler> logger, IPetfinderService petfinderService)
+        public AdoptablePetsHandler(ILogger<AdoptablePetsHandler> logger, IPetfinderService petfinderService)
         {
             _logger = logger;
             _petfinderService = petfinderService;

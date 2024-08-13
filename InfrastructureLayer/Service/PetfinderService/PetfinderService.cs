@@ -1,7 +1,7 @@
-﻿using Paws_API.DomainLayer.Responses;
-using System.Text.Json;
+﻿using System.Text.Json;
 using Paws_API.InfrastructureLayer.Service.PetfinderService.Client;
 using Paws_API.DomainLayer.Config.Container;
+using Paws_API.DomainLayer.Models.Responses;
 
 namespace Paws_API.InfrastructureLayer.Service.PetfinderService
 {

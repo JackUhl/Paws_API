@@ -3,5 +3,6 @@
     public interface IConfigurationContainer
     {
         PetfinderServiceSettings PetfinderServiceSettings { get; }
+        EmailClientSettings EmailClientSettings { get; }
     }
 }

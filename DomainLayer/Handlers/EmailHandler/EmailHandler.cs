@@ -46,7 +46,7 @@ namespace Paws_API.DomainLayer.Handlers.EmailHandler
                     IsBodyHtml = false,
                 };
 
-                _emailClient.Client.Send(newEmail);
+                await _emailClient.Client.SendMailAsync(newEmail);
                 return new EmailResponse() 
                 {
                     Success = true,
@@ -55,7 +55,47 @@ namespace Paws_API.DomainLayer.Handlers.EmailHandler
             }
             catch (Exception ex)
             {
-                throw ex;
+                throw new Exception(ex.Message, ex.InnerException?? new Exception());
+            }
+        }
+
+        public async Task<EmailResponse> SendVolunteerApplicationEmail(VolunteerEmailRequest request)
+        {
+            try
+            {
+                var newEmail = new MailMessage(_emailClient.FromAddress, _emailClient.ToAddress)
+                {
+                    Subject = "New Volunteer Application",
+                    SubjectEncoding = System.Text.Encoding.UTF8,
+
+                    Body = $"""
+                        Applicant
+                        Name: {request.FirstName} {request.LastName}
+                        Phone: {request.Phone}
+                        Email: {request.Email}
+
+                        What they can assit with:
+                        {(request.VolunteerOptions.Transport? "Transport": "")}
+                        {(request.VolunteerOptions.EventSetUp ? "Event Set Up" : "")}
+                        {(request.VolunteerOptions.Fundraising ? "Fundraising" : "")}
+                        {(request.VolunteerOptions.Photography ? "Photography" : "")}
+                        {(request.VolunteerOptions.Grooming ? "Grooming" : "")}
+                        {(request.VolunteerOptions.Training ? "Training" : "")}
+                    """,
+                    BodyEncoding = System.Text.Encoding.UTF8,
+                    IsBodyHtml = false,
+                };
+
+                await _emailClient.Client.SendMailAsync(newEmail);
+                return new EmailResponse()
+                {
+                    Success = true,
+                    ErrorMessage = ""
+                };
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex.InnerException ?? new Exception());
             }
         }
     }

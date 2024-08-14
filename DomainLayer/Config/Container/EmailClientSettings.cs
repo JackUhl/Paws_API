@@ -2,9 +2,9 @@
 {
     public record EmailClientSettings
     {
-        public string ServerConnectionString { get; set; }
-        public string OutputEmailAddress { get; set; }
-        public string ServiceEmailUsername { get; set; }
-        public string ServiceEmailPassword { get; set; }
+        public required string ServerConnectionString { get; set; }
+        public required string OutputEmailAddress { get; set; }
+        public required string ServiceEmailUsername { get; set; }
+        public required string ServiceEmailPassword { get; set; }
     }
 }

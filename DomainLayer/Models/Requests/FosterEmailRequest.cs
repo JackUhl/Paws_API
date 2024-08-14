@@ -2,15 +2,15 @@
 {
     public record FosterEmailRequest
     {
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
-        public string Phone { get; set; }
-        public string Email { get; set; }
-        public string WhyDoYouWantTo {  get; set; }
-        public string WhatAnimalsDoYouHave {  get; set; }
-        public string Reference1Name { get; set; }
-        public string Reference1Phone { get; set; }
-        public string Reference2Name { get; set; }
-        public string Reference2Phone { get; set; }
+        public required string FirstName { get; set; }
+        public required string LastName { get; set; }
+        public required string Phone { get; set; }
+        public required string Email { get; set; }
+        public required string WhyDoYouWantTo {  get; set; }
+        public required string WhatAnimalsDoYouHave {  get; set; }
+        public required string Reference1Name { get; set; }
+        public required string Reference1Phone { get; set; }
+        public required string Reference2Name { get; set; }
+        public required string Reference2Phone { get; set; }
     }
 }

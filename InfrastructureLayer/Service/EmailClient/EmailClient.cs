@@ -15,9 +15,12 @@ namespace Paws_API.InfrastructureLayer.Service.EmailClient
             var settings = configurationContainer.EmailClientSettings;
 
             _SmtpClient = new SmtpClient(settings.ServerConnectionString, 587)
-            { 
+            {
+                UseDefaultCredentials = false,
+                DeliveryMethod = SmtpDeliveryMethod.Network,
+                Credentials = new NetworkCredential(settings.ServiceEmailUsername, settings.ServiceEmailPassword),
                 EnableSsl = true,
-                Credentials = new NetworkCredential(settings.ServiceEmailUsername, settings.ServiceEmailPassword)
+                Timeout = 10000
             };
 
             _FromAddress = new MailAddress(settings.ServiceEmailUsername);

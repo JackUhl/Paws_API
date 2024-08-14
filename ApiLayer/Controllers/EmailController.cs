@@ -36,6 +36,31 @@ namespace Paws_API.ApiLayer.Controllers
             }
             catch (Exception ex)
             {
+                Console.WriteLine(ex);
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
+
+        [HttpPost]
+        [Route("/VolunteerApplication")]
+        public async Task<IActionResult> PostVolunteerApplication([FromBody] VolunteerEmailRequest request)
+        {
+            try
+            {
+                var response = await _emailHandler.SendVolunteerApplicationEmail(request);
+
+                if (response.Success)
+                {
+                    return StatusCode(StatusCodes.Status201Created);
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status400BadRequest, response.ErrorMessage);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }

@@ -1,4 +1,4 @@
-﻿using Paws_API.DomainLayer.Responses;
+﻿using Paws_API.DomainLayer.Models.Responses;
 
 namespace Paws_API.DomainLayer.Handlers.PetfinderHandler
 {

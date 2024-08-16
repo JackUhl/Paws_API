@@ -1,4 +1,4 @@
-﻿namespace Paws_API.DomainLayer.Responses
+﻿namespace Paws_API.DomainLayer.Models.Responses
 {
     public class PetfinderResponse
     {
@@ -82,7 +82,7 @@
         public Address address { get; set; }
     }
 
-    public class Address 
+    public class Address
     {
         public string address1 { get; set; }
         public string address2 { get; set; }

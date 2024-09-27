@@ -16,6 +16,7 @@
     public class PetfinderServiceParams
     {
         public string OrganizationParam { get; set; }
+        public string LimitParam { get; set; }
     }
 
     public class PetfinderServiceSecrets

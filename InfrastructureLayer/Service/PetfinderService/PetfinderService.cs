@@ -2,8 +2,6 @@
 using Paws_API.InfrastructureLayer.Service.PetfinderService.Client;
 using Paws_API.DomainLayer.Config.Container;
 using Paws_API.DomainLayer.Models.Responses;
-using Microsoft.AspNetCore.Http.Extensions;
-using Microsoft.AspNetCore.WebUtilities;
 
 namespace Paws_API.InfrastructureLayer.Service.PetfinderService
 {

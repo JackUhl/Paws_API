@@ -20,7 +20,12 @@ namespace Paws_API.InfrastructureLayer.Service.PetfinderService
         {
             var url = new UriBuilder(_configurationContainer.PetfinderServiceSettings.BaseUrl);
             url.Path = _configurationContainer.PetfinderServiceSettings.Endpoints.Animals;
-            url.Query = _configurationContainer.PetfinderServiceSettings.Params.OrganizationParam;
+
+            var organizationParam = _configurationContainer.PetfinderServiceSettings.Params.OrganizationParam;
+            var limitParam = _configurationContainer.PetfinderServiceSettings.Params.LimitParam;
+            var joinedQuery = $"{organizationParam}&{limitParam}";
+
+            url.Query = joinedQuery;
 
             var response = await _petfinderClient.GetAsync(url.Uri.AbsoluteUri);
 

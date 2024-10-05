@@ -1,3 +1,4 @@
+using Microsoft.Net.Http.Headers;
 using Paws_API.DomainLayer.Config;
 using Paws_API.DomainLayer.Config.Container;
 using Paws_API.DomainLayer.Handlers.EmailHandler;
@@ -30,14 +31,15 @@ builder.Services.AddSingleton<IConfigurationContainer, ConfigurationContainer>()
 
 builder.Services.AddHttpClient();
 
-var allowedOriginsPolicy = "AllowedOrigins";
+var corsPolicy = "corsPolicy";
 var allowedOriginsSettings = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>();
 
 builder.Services.AddCors(options =>
 {
-    options.AddPolicy(name: allowedOriginsPolicy, builder =>
+    options.AddPolicy(name: corsPolicy, builder =>
     {
-        builder.WithOrigins(allowedOriginsSettings!);
+        builder.WithOrigins(allowedOriginsSettings!)
+               .WithHeaders(HeaderNames.ContentType);
     });
 });
 
@@ -49,7 +51,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseCors(allowedOriginsPolicy);
+app.UseCors(corsPolicy);
 
 app.UseHttpsRedirection();
 

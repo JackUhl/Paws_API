@@ -1,8 +1,6 @@
-﻿using Paws_API.DomainLayer.Handlers.PetfinderHandler;
-using Paws_API.DomainLayer.Models.Requests;
+﻿using Paws_API.DomainLayer.Models.Requests;
 using Paws_API.DomainLayer.Models.Responses;
 using Paws_API.InfrastructureLayer.Service.EmailClient;
-using Paws_API.InfrastructureLayer.Service.PetfinderService;
 using System.Net.Mail;
 
 namespace Paws_API.DomainLayer.Handlers.EmailHandler
@@ -22,7 +20,7 @@ namespace Paws_API.DomainLayer.Handlers.EmailHandler
         {
             try
             {
-                var newEmail = new MailMessage(_emailClient.FromAddress, _emailClient.ToAddress)
+                var fosterApplicationEmail = new MailMessage(_emailClient.FromAddress, _emailClient.ToAddress)
                 {
                     Subject = "New Foster Application",
                     SubjectEncoding = System.Text.Encoding.UTF8,
@@ -43,10 +41,12 @@ namespace Paws_API.DomainLayer.Handlers.EmailHandler
                         Reference 2: {request.Reference2Name}- {request.Reference2Phone}
                     """,
                     BodyEncoding = System.Text.Encoding.UTF8,
+
                     IsBodyHtml = false,
                 };
 
-                await _emailClient.Client.SendMailAsync(newEmail);
+                await _emailClient.Client.SendMailAsync(fosterApplicationEmail);
+                
                 return new EmailResponse() 
                 {
                     Success = true,
@@ -63,7 +63,7 @@ namespace Paws_API.DomainLayer.Handlers.EmailHandler
         {
             try
             {
-                var newEmail = new MailMessage(_emailClient.FromAddress, _emailClient.ToAddress)
+                var volunteerApplicationEmail = new MailMessage(_emailClient.FromAddress, _emailClient.ToAddress)
                 {
                     Subject = "New Volunteer Application",
                     SubjectEncoding = System.Text.Encoding.UTF8,
@@ -83,10 +83,12 @@ namespace Paws_API.DomainLayer.Handlers.EmailHandler
                         {(request.VolunteerOptions.Training ? "Training" : "")}
                     """,
                     BodyEncoding = System.Text.Encoding.UTF8,
+
                     IsBodyHtml = false,
                 };
 
-                await _emailClient.Client.SendMailAsync(newEmail);
+                await _emailClient.Client.SendMailAsync(volunteerApplicationEmail);
+                
                 return new EmailResponse()
                 {
                     Success = true,

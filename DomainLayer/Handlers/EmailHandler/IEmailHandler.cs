@@ -7,5 +7,6 @@ namespace Paws_API.DomainLayer.Handlers.EmailHandler
     {
         public Task<EmailResponse> SendFosterApplicationEmail(FosterEmailRequest request);
         public Task<EmailResponse> SendVolunteerApplicationEmail(VolunteerEmailRequest request);
+        public Task<EmailResponse> SendAdoptionApplicationEmail(AdoptionEmailRequest request);
     }
 }

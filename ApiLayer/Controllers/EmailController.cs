@@ -64,5 +64,29 @@ namespace Paws_API.ApiLayer.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError);
             }
         }
+
+        [HttpPost]
+        [Route("/AdoptionApplication")]
+        public async Task<IActionResult> PostAdoptionApplication([FromBody] AdoptionEmailRequest request)
+        {
+            try
+             {
+                var response = await _emailHandler.SendAdoptionApplicationEmail(request);
+
+                if (response.Success)
+                {
+                    return StatusCode(StatusCodes.Status201Created);
+                }
+                else
+                {
+                    return StatusCode(StatusCodes.Status400BadRequest, response.ErrorMessage);
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+                return StatusCode(StatusCodes.Status500InternalServerError);
+            }
+        }
     }
 }

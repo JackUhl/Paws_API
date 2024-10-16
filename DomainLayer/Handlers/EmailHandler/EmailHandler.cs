@@ -26,8 +26,7 @@ namespace Paws_API.DomainLayer.Handlers.EmailHandler
                     SubjectEncoding = System.Text.Encoding.UTF8,
 
                     Body = $"""
-                        Applicant
-                        Name: {request.FirstName} {request.LastName}
+                        Applicant Name: {request.FirstName} {request.LastName}
                         Phone: {request.Phone}
                         Email: {request.Email}
 
@@ -69,8 +68,7 @@ namespace Paws_API.DomainLayer.Handlers.EmailHandler
                     SubjectEncoding = System.Text.Encoding.UTF8,
 
                     Body = $"""
-                        Applicant
-                        Name: {request.FirstName} {request.LastName}
+                        Applicant Name: {request.FirstName} {request.LastName}
                         Phone: {request.Phone}
                         Email: {request.Email}
 
@@ -89,6 +87,63 @@ namespace Paws_API.DomainLayer.Handlers.EmailHandler
 
                 await _emailClient.Client.SendMailAsync(volunteerApplicationEmail);
                 
+                return new EmailResponse()
+                {
+                    Success = true,
+                    ErrorMessage = ""
+                };
+            }
+            catch (Exception ex)
+            {
+                throw new Exception(ex.Message, ex.InnerException ?? new Exception());
+            }
+        }
+
+        public async Task<EmailResponse> SendAdoptionApplicationEmail(AdoptionEmailRequest request)
+        {
+            try
+            {
+                var adoptionApplicationEmail = new MailMessage(_emailClient.FromAddress, _emailClient.ToAddress)
+                {
+                    Subject = $"New Adoption Application - {request.PetApplyingFor}",
+                    SubjectEncoding = System.Text.Encoding.UTF8,
+
+                    Body = $"""
+                        Application for {request.PetApplyingFor}:
+
+                        Applicant Name: {request.FirstName} {request.LastName}
+                        Phone: {request.Phone}
+                        Email: {request.Email}
+
+                        Address Line 1: {request.AddressLineOne}
+                        Address Line 2: {request.AddressLineTwo}
+                        City: {request.City}
+                        State: {request.State}
+                        Zip: {request.Zip}
+
+                        What pets they currently have:
+                        {request.CurrentPets}
+
+                        Current household members:
+                        {request.HouseholdMembers}
+
+                        Landlord Info:
+                        {request.LandlordInfo}
+
+                        Reference 1: {request.Reference1Name}- {request.Reference1Phone}
+                        Reference 2: {request.Reference2Name}- {request.Reference2Phone}
+                        Reference 3: {request.Reference3Name}- {request.Reference3Phone}
+
+                        Vet Name: {request.VetName}
+                        Vet Phone: {request.VetPhone}
+                    """,
+                    BodyEncoding = System.Text.Encoding.UTF8,
+
+                    IsBodyHtml = false,
+                };
+
+                await _emailClient.Client.SendMailAsync(adoptionApplicationEmail);
+
                 return new EmailResponse()
                 {
                     Success = true,
